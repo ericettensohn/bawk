@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="well well-lg">This is the main page</div>
+
+<div class="container">
+
+	<div class="post" ng-repeat="post in posts track by $index">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<img class="avatar" src="{$ post[0] $}">
+
+				<span class="username">
+					{$ post[1] $}
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10">
+				<p>{$ post[2] $}</p>
+			</div>
+			<div class="col-sm-2 vote">
+				<div class="row">
+					<a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
+				</div>
+				<div class="row num">
+					{$ post[3] $}
+				</div>
+				<div class="row">
+					<a href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 time">
+				{$ post[4] $} * Atlanta
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
+{% endblock %}

@@ -7,9 +7,9 @@
 
 // LAYOUT
 // -------------------------------
-@import "layout/layout";
-@import "layout/header";
-@import "layout/footer";
+@import "layout/nav";
+@import "layout/regi-dropdown";
+@import "layout/login-dropdown";
 
 // VIEWS
 // -------------------------------
@@ -20,7 +20,14 @@
 @import "views/payment";
 @import "views/account";
 
+@import "layout/post";
+
 
 body {
-	background-color: #1d96d7;
+	background-color: #fafafa;
+	margin-top: 80px;
+}
+
+.post {
+
 }

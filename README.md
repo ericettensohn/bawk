@@ -1,7 +1,6 @@
 #Bawk (Social Post) App
 
-##Overview
-This is a simple Yik Yak/Twitter clone. Registration, login, password hashing with bcrypt, MySQL.
+A simple Yik Yak/Twitter clone. Registration, login, password hashing with bcrypt, MySQL.
 
 ##Technologies
 * HTML
@@ -14,9 +13,9 @@ This is a simple Yik Yak/Twitter clone. Registration, login, password hashing wi
 * Jinja
 * MySQL
 
-##Local Installation Requirements
-`pip install flask
-pip install flask-mysql
-pip install bcrypt`
+##Local Installation
+`pip install flask flask-mysql bcrypt`
+
+`python main.py`
 
 ##Live Demo

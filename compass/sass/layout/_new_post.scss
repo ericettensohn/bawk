@@ -1,0 +1,99 @@
+.new-post {
+	overflow: hidden;
+	width: 400px;
+	margin: 30px auto;
+	max-width: 400px;
+	background-color: #ffffff;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+
+	.username {
+		font-size: 14px;
+		font-weight: bold;
+		color: #647170;
+	}
+
+	.avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+	}
+
+	.vote {
+		font-size: 22px;
+		text-align: center;
+		span {
+			color: #ddd;
+		}
+
+		.num {
+			color: #0dd5b2;
+		}
+	}
+
+	.time {
+		margin-left: 15px;
+		color: #B8C6C4;
+	}
+
+	p {
+		margin-top: 10px;
+		color: #3f4443;
+	}
+
+	textarea {
+		margin: 10px 5px;
+		font-size: 15px;
+		outline: none;
+		border: none !important;
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+
+
+		width:340px;
+		resize:none;
+		overflow:hidden;
+		font-size:18px;
+		height:1.1em;
+		padding:2px;
+	}
+
+
+	.bottom-row {
+		text-align: right;
+		border-top: 1px solid #e6e6e6;
+		margin-right: 10px;
+		margin-top: 15px;
+
+		
+
+		input {
+			background-color: white;
+			color: #0dd5b2;
+			text-size: 16px;
+			margin: 5px 0 0 0;
+			border: none;
+		}
+
+		input:active {
+			background-color: white;
+			color: #0dd5b2;	
+		}
+
+		input:focus {
+			outline: none !important;
+			background-color: white;
+			border: none !important;
+			-webkit-box-shadow: none !important;
+			-moz-box-shadow: none !important;
+			box-shadow: none !important;
+			color: #ddd;	
+		}
+
+		input:hover {
+			color: #bbb;
+		}
+	}
+}

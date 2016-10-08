@@ -3,9 +3,61 @@
 
 <div class="well well-lg">This is the main page</div>
 
-<div class="container">
+<div class="container index-container">
 
-	<div class="post" ng-repeat="post in posts track by $index">
+	<div class="follow-list">
+		<div class="follow-list-title row">
+			<span ng-hide="everyoneFollowed">Trending Users</span>
+			<p ng-show="everyoneFollowed">You're following everyone!</p>
+		</div>
+		<div class="row">
+
+			<div class="follow-list-user col-sm-4" ng-repeat="user in users | limitTo: 3 track by $index ">
+				<a href="">
+					<div class="follow-list-avatar-wrapper row" ng-click="followUser(user[0], $index)">
+						<img class="follow-list-avatar" src="{$ user[1] $}">
+						<span class="follow-overlay">FOLLOW</span>
+					</div>
+				</a>
+				<div class="follow-list-username row">
+					<span>{$ user[2] $}</span>
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div class="new-post" ng-if="loggedIn">
+
+		<div class="row">
+			<div class="col-sm-12">
+
+				<img class="avatar" src="{$ avatar $}">
+
+				<span class="username">
+					{$ username $}
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-11 col-sm-offset-1">
+				<form class="form" ng-submit="makePost()">
+					<textarea type="text" ng-model="$parent.newPostInput" autofocus placeholder="what's on your mind?"></textarea>
+					<div class="row">
+						<div class="col-sm-12 bottom-row">
+							<input type="submit" class="btn btn-success" value="SEND">
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="post" ng-repeat="post in posts | orderBy:'$index':true">
 		<div class="row">
 			<div class="col-sm-12">
 

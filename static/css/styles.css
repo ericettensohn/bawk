@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css?family=Raleway:400,500";
 /* line 1, ../../compass/sass/layout/_nav.scss */
 .navbar-fixed-top {
   background-color: #ffffff;
@@ -142,43 +143,204 @@
   border: 1px solid #e0e0e0;
   margin-top: 30px;
   margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
-/* line 11, ../../compass/sass/layout/_post.scss */
+/* line 13, ../../compass/sass/layout/_post.scss */
 .post .username {
   font-size: 17px;
   font-weight: bold;
 }
-/* line 16, ../../compass/sass/layout/_post.scss */
+/* line 18, ../../compass/sass/layout/_post.scss */
 .post .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
-/* line 22, ../../compass/sass/layout/_post.scss */
+/* line 24, ../../compass/sass/layout/_post.scss */
 .post .vote {
   font-size: 22px;
   text-align: center;
 }
-/* line 25, ../../compass/sass/layout/_post.scss */
+/* line 27, ../../compass/sass/layout/_post.scss */
 .post .vote span {
   color: #ddd;
 }
-/* line 29, ../../compass/sass/layout/_post.scss */
+/* line 31, ../../compass/sass/layout/_post.scss */
 .post .vote .num {
   color: #0dd5b2;
 }
-/* line 34, ../../compass/sass/layout/_post.scss */
+/* line 36, ../../compass/sass/layout/_post.scss */
 .post .time {
   margin-left: 15px;
   color: #B8C6C4;
 }
-/* line 39, ../../compass/sass/layout/_post.scss */
+/* line 41, ../../compass/sass/layout/_post.scss */
 .post p {
   margin-top: 10px;
   color: #3f4443;
 }
 
-/* line 26, ../../compass/sass/styles.scss */
+/* line 1, ../../compass/sass/layout/_follow_list.scss */
+.follow-list {
+  max-width: 600px;
+  margin: auto;
+  font-size: 18px;
+}
+/* line 8, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+/* line 11, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-title span {
+  font-family: 'Lobster', cursive;
+  font-size: 28px;
+  color: #0dd5b2;
+}
+/* line 17, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-title p {
+  margin-top: 50px;
+  color: #aaa;
+  font-size: 20px;
+}
+/* line 25, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user {
+  text-align: center;
+}
+/* line 28, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper:hover > .follow-overlay {
+  display: block;
+}
+/* line 33, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper:hover > .follow-list-avatar {
+  opacity: 0.5;
+}
+/* line 38, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper {
+  position: relative;
+}
+/* line 41, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-list-avatar {
+  width: 120px;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: .3s;
+}
+/* line 48, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-overlay {
+  color: white;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 50px;
+  display: none;
+}
+/* line 62, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-username span {
+  color: #666 !important;
+}
+
+/* line 1, ../../compass/sass/layout/_new_post.scss */
+.new-post {
+  overflow: hidden;
+  width: 400px;
+  margin: 30px auto;
+  max-width: 400px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+/* line 11, ../../compass/sass/layout/_new_post.scss */
+.new-post .username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #647170;
+}
+/* line 17, ../../compass/sass/layout/_new_post.scss */
+.new-post .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+/* line 23, ../../compass/sass/layout/_new_post.scss */
+.new-post .vote {
+  font-size: 22px;
+  text-align: center;
+}
+/* line 26, ../../compass/sass/layout/_new_post.scss */
+.new-post .vote span {
+  color: #ddd;
+}
+/* line 30, ../../compass/sass/layout/_new_post.scss */
+.new-post .vote .num {
+  color: #0dd5b2;
+}
+/* line 35, ../../compass/sass/layout/_new_post.scss */
+.new-post .time {
+  margin-left: 15px;
+  color: #B8C6C4;
+}
+/* line 40, ../../compass/sass/layout/_new_post.scss */
+.new-post p {
+  margin-top: 10px;
+  color: #3f4443;
+}
+/* line 45, ../../compass/sass/layout/_new_post.scss */
+.new-post textarea {
+  margin: 10px 5px;
+  font-size: 15px;
+  outline: none;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  width: 340px;
+  resize: none;
+  overflow: hidden;
+  font-size: 18px;
+  height: 1.1em;
+  padding: 2px;
+}
+/* line 64, ../../compass/sass/layout/_new_post.scss */
+.new-post .bottom-row {
+  text-align: right;
+  border-top: 1px solid #e6e6e6;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+/* line 72, ../../compass/sass/layout/_new_post.scss */
+.new-post .bottom-row input {
+  background-color: white;
+  color: #0dd5b2;
+  text-size: 16px;
+  margin: 5px 0 0 0;
+  border: none;
+}
+/* line 80, ../../compass/sass/layout/_new_post.scss */
+.new-post .bottom-row input:active {
+  background-color: white;
+  color: #0dd5b2;
+}
+/* line 85, ../../compass/sass/layout/_new_post.scss */
+.new-post .bottom-row input:focus {
+  outline: none !important;
+  background-color: white;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #ddd;
+}
+/* line 95, ../../compass/sass/layout/_new_post.scss */
+.new-post .bottom-row input:hover {
+  color: #bbb;
+}
+
+/* line 30, ../../compass/sass/styles.scss */
 body {
   background-color: #fafafa;
   margin-top: 80px;

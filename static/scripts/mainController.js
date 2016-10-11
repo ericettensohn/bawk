@@ -10,56 +10,38 @@ bawkApp.config(function($locationProvider) {
     });
 });
 
-bawkApp.controller('mainController', function($scope, $http, $location, $cookies){
+bawkApp.controller('mainController', function($scope, $http, $location, $cookies, $timeout){
 
-	// auto resize text area
-	// found @ http://stackoverflow.com/questions/23818131/dynamically-expand-height-of-input-type-text-based-on-number-of-characters-typ
-	var span = $('<span>').css('display', 'inline-block')
-	    .css('word-break', 'break-all')
-	    .appendTo('body').css('visibility', 'hidden');
-	function initSpan(textarea) {
-	    span.text(textarea.text())
-	        .width(textarea.width())
-	        .css('font', textarea.css('font'));
-	}
-	$('textarea').on({
-	    input: function() {
-	        var text = $(this).val();
-	        span.text(text);
-	        $(this).height(text ? span.height() : '1.1em');
-	    },
-	    focus: function() {
-	        initSpan($(this));
-	    },
-	    keypress: function(e) {
-	        //cancel the Enter keystroke, otherwise a new line will be created
-	        //This ensures the correct behavior when user types Enter 
-	        //into an input field
-	        if (e.which == 13) e.preventDefault();
-	    }
-	});
+	var path = 'http://localhost:5000/';
 
+	$scope.newPostInput = {text: ""}
 
 	checkToken()
 
+	if ($location.path() == '/' && $scope.loggedIn){
+		loadPosts();
 
+		getTrendingUsers();
+	
+	}
 
-	if ($location.path() == '/'){
-		// load posts
+	function loadPosts(){
 		$http.post('http://localhost:5000/get_posts', {
 			username: $scope.username
 		}).then(function success(response){
 			$scope.posts = response.data;
+			console.log($scope.posts)
+		})	
+	}
 
-		})
-		// get trending users
+	function getTrendingUsers(){
 		$http.post('http://localhost:5000/get_trending_users', {
 			username: $scope.username
 		}).then(function success(response){
 			$scope.users = response.data;
+			console.log($scope.users)
 
 		})
-	
 	}
 
 
@@ -70,7 +52,8 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 			avatar: $scope.avatar
 		}).then(function success(response){
 			if(response.data == 'reg successful'){
-				$scope.loggedIn = true;
+				$scope.login();
+				$('.dropdown.open .dropdown-toggle').dropdown('toggle');
 			}
 		})
 
@@ -88,6 +71,8 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$scope.avatar = response.data;
 				$cookies.put('avatar', $scope.avatar)
 			}
+			getTrendingUsers();
+			loadPosts();
 		})
 	}
 
@@ -109,8 +94,9 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	}
 
 	$scope.makePost = function(){
-		newPostContent = $scope.newPostInput;
-		$scope.newPostInput = '';
+		newPostContent = $scope.newPostInput.text;
+		console.log(newPostContent)
+		// $scope.newPostInput = '';
 
 		$http.post('http://localhost:5000/new_post', {
 			newPostContent: newPostContent,
@@ -118,11 +104,12 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		}).then(function success(response){
 			$http.get('http://localhost:5000/get_posts', {
 
-			}).then(function success(response){
+		}).then(function success(response){
 			$scope.posts = response.data
 
 			})
 		})
+		loadPosts();
 	}
 
 	$scope.follow = function(){
@@ -144,7 +131,43 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 			following_id: id
 		})
 
+		loadPosts();
+
 	}
+
+	$scope.vote = function(vid, voteType){
+		if(voteType == true){
+			var voteType = 1;
+		}else if(voteType == false){
+			var voteType = -1;
+		}
+		// console.log(vid);
+		$http.post(path + 'process_vote', {
+			vid: vid,
+			voteType: voteType,
+			username: $scope.username
+		}).then(function successCallback(response){
+			if(response.data == 'alreadyVoted'){
+				$scope.alreadyVoted = true;
+				$timeout(function(){
+					$scope.alreadyVoted = false;
+				}, 1500);
+				console.log('alreadyVoted')
+			}
+			else if(response.data){
+				// $scope.posts = response.data;
+				loadPosts();
+			}
+		})
+
+
+	}
+
+	$scope.triggerSignUp = function() {
+	    $timeout(function() {
+	        angular.element('#sign-up-btn').trigger('click');
+	    }, 100);
+	};
 
 
 

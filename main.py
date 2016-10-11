@@ -82,7 +82,7 @@ def get_posts():
 	cursor.execute(get_user_id_query)
 	user_id = cursor.fetchone()
 	# get_posts_query = "SELECT user.avatar, username, content, votes, time, location FROM posts JOIN user ON uid = user.id"
-	get_posts_query = "SELECT user.avatar, username, content, votes, time, location, uid FROM posts LEFT JOIN user ON uid = user.id LEFT JOIN follow on following_id = posts.uid WHERE follow.following_id IN (SELECT following_id from follow where follower_id = %s) GROUP BY user.avatar, username, content, votes, time, location, uid" % user_id
+	get_posts_query = "SELECT user.avatar, username, content, votes, time, location, uid, posts.id FROM posts LEFT JOIN user ON uid = user.id LEFT JOIN follow on following_id = posts.uid WHERE follow.following_id IN (SELECT following_id from follow where follower_id = {0}) OR uid = {0} GROUP BY user.avatar, username, content, votes, time, location, uid, posts.id ORDER BY time ASC".format(user_id[0])
 
 	cursor.execute(get_posts_query)
 	get_posts_result = cursor.fetchall()
@@ -99,9 +99,9 @@ def new_post():
 	cursor.execute(get_user_id_query)
 	get_user_id_result = cursor.fetchone()
 
-	insert_post_query = "INSERT INTO posts (content, uid) VALUES ('%s', '%s')" % (new_post_content, get_user_id_result[0])
+	insert_post_query = "INSERT INTO posts (content, uid) VALUES (%s, %s)" 
 	print insert_post_query
-	cursor.execute(insert_post_query)
+	cursor.execute(insert_post_query, (new_post_content, get_user_id_result[0]))
 	conn.commit()
 	return "success"
 
@@ -113,13 +113,16 @@ def get_trending_users():
 	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
 	cursor.execute(get_user_id_query)
 	user_id = cursor.fetchone()
+	print user_id
 
 	# get_trending_users_query = "SELECT id, avatar, username FROM user WHERE username != '%s'" % username
 
-	get_trending_users_query = "SELECT user.id, avatar, username FROM user LEFT JOIN follow on following_id = user.id WHERE follow.following_id NOT IN (SELECT following_id from follow where follower_id = {0}) AND following_id != {0} GROUP BY user.id, avatar, username".format(user_id[0])
+	# get_trending_users_query = "SELECT user.id, avatar, username FROM user LEFT JOIN follow on following_id = user.id WHERE follow.following_id NOT IN (SELECT following_id from follow where follower_id = {0}) AND user.id != {0} GROUP BY user.id, avatar, username".format(user_id[0])
+
+	get_trending_users_query = "SELECT user.id, avatar, username FROM user WHERE user.id NOT IN (SELECT following_id FROM follow WHERE follower_id = {0} GROUP BY following_id) AND user.id != {0} GROUP BY user.id, avatar, username ORDER BY rand()".format(user_id[0])
 	cursor.execute(get_trending_users_query)
 	trending_users_result = cursor.fetchall()
-
+	print trending_users_result
 	return jsonify(trending_users_result)
 
 @app.route('/follow', methods=['POST'])
@@ -138,6 +141,70 @@ def follow():
 	conn.commit()
 
 	return "yay!"
+
+
+@app.route('/process_vote', methods=['POST'])
+def process_vote():
+	data = request.get_json()
+	pid = data['vid']
+	vote_type = data['voteType']
+	username = data['username']
+
+	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
+	cursor.execute(get_user_id_query)
+	get_user_id_result = cursor.fetchone()
+
+	# check_user_votes_query = "SELECT * FROM vote INNER JOIN user ON user.id = vote.uid WHERE user.username = '%s' AND vote.pid = '%s' AND vote_type = '%s' AND user.id != %s" % (username, pid, vote_type, get_user_id_result[0])
+
+	# check_user_votes_query = "SELECT * FROM vote INNER JOIN user ON user.id = vote.uid INNER JOIN posts on vote.pid = posts.id WHERE user.username = '%s' AND vote.pid = '%s' AND vote_type = '%s' OR posts.uid = %s" % (username, pid, vote_type, get_user_id_result[0])
+
+	# check_user_votes_query = "SELECT * FROM vote INNER JOIN user ON user.id = vote.uid INNER JOIN posts on vote.pid = posts.id WHERE user.username = '%s' AND vote.pid = '%s' AND vote_type = '%s' OR posts.uid = %s" % (username, pid, vote_type, get_user_id_result[0])
+
+	check_user_votes_query = "SELECT vote.id, vote.uid, vote.pid FROM vote INNER JOIN user ON user.id = vote.uid WHERE user.id = '%s' AND vote.pid = '%s' AND vote_type = '%s' OR vote.pid = %s IN (SELECT id FROM posts where uid = %s)" % (get_user_id_result[0], pid, vote_type, pid, get_user_id_result[0])
+
+	cursor.execute(check_user_votes_query)
+	check_user_votes_result = cursor.fetchone()
+	print check_user_votes_query
+	print check_user_votes_result
+
+	# it's possible we get none back because the user hasn't voted on this post
+	if check_user_votes_result is None:
+		# print "I am here"
+		insert_user_vote_query = "INSERT INTO vote (pid, uid, vote_type) VALUES ('%s', '%s', '%s')" %(pid,get_user_id_result[0], vote_type)
+		cursor.execute(insert_user_vote_query)
+		conn.commit()
+
+		update_post_votes = "SELECT SUM(vote_type) AS user_votes FROM vote WHERE pid = '%s'" %(pid)
+		cursor.execute(update_post_votes)
+		post_vote = cursor.fetchone()
+		conn.commit()
+
+		update_vote_query = "UPDATE posts SET posts.votes = %s WHERE posts.id = %s" % (post_vote[0], pid)
+		cursor.execute(update_vote_query)
+		conn.commit()
+
+		get_posts_query = "SELECT user.avatar, user.username, content, votes, time, location, uid, posts.id FROM posts LEFT JOIN user ON posts.uid = user.id LEFT JOIN follow on following_id = posts.uid WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, votes, time, location, uid, posts.id" % get_user_id_result
+		cursor.execute(get_posts_query)
+		get_post_result = cursor.fetchall()	
+		conn.commit()
+		if get_post_result:
+			print 'voteCounted'
+			return jsonify(get_post_result)
+	else:
+		print 'alreadyVoted'
+		return jsonify('alreadyVoted')
+
+# @app.route('/profile/<id>')
+# def user_profile(id):
+
+# 	get_posts_query = "SELECT user.avatar, user.username, content, votes, time, location, uid, posts.id FROM posts LEFT JOIN user ON posts.uid = user.id LEFT JOIN follow on following_id = posts.uid WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, votes, time, location, uid, posts.id" % id
+# 	cursor.execute(get_posts_query)
+# 	get_posts_result = cursor.fetchall()
+
+# 	return render_template('profile.html', data = jsonify(get_posts_result) )
+
+
+
 
 if __name__ == "__main__":
 	app.run(debug=True)

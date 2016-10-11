@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+	<div class="post" ng-repeat="post in posts | orderBy:'$index':true">
+		<div class="row">
+			<div class="col-sm-12">
+
+					<img class="avatar" src="{$ post[0] $}">
+				<a href="/profile/{$ post[6] $}">
+					<span class="username">
+						{$ post[1] $}
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10">
+				<p>{$ post[2] $}</p>
+			</div>
+			<div class="col-sm-2 vote">
+				<div class="row">
+					<a href="#"><span ng-click="vote( post[7], true);" class="glyphicon glyphicon-chevron-up"></span></a>
+				</div>
+				<div class="row num">
+					{$ post[3] $}
+				</div>
+				<div class="row">
+					<a href="#"><span ng-click="vote( post[7], false);" class="glyphicon glyphicon-chevron-down"></span></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 time">
+				{$ post[4] $} * Atlanta
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,9 +1,54 @@
 {% extends 'layout.html' %}
 {% block body %}
 
-<div class="well well-lg">This is the main page</div>
+<div class="front-page text-center" ng-hide="loggedIn">
+	<p class="header">Bawk is a social media platform</h2>
+	<p class="sub-header">It uses MySQL, Python, and Flask to create accounts and serve up posts</h3>
 
-<div class="container index-container">
+	<div class="post text-left">
+		<div class="row">
+			<div class="col-sm-12 top-bar">
+				
+				<div class="avatar-wrapper">
+					<img class="avatar" src="http://www.digitalcrafts.com/img/team-max-mcchesney.png">
+				</div>
+
+				<a href="/profile/{$ post[6] $}">
+					<span class="username">
+						Max
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10">
+				<p>I love bawk!</p>
+			</div>
+			<div class="col-sm-2 vote">
+				<div class="row">
+					<a href="#"><span ng-click="vote( post[7], true);" class="glyphicon glyphicon-chevron-up"></span></a>
+				</div>
+				<div class="row num">
+					5
+				</div>
+				<div class="row">
+					<a href="#"><span ng-click="vote( post[7], false);" class="glyphicon glyphicon-chevron-down"></span></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 time">
+				2hrs Ago
+			</div>
+		</div>
+	</div>
+
+
+	<a href=""><p class="sub-sub-header" ng-click="triggerSignUp()">Create an account to get started</p></a>
+
+</div>
+
+<div ng-if="loggedIn" class="container index-container">
 
 	<div class="follow-list">
 		<div class="follow-list-title row">
@@ -31,9 +76,10 @@
 	<div class="new-post" ng-if="loggedIn">
 
 		<div class="row">
-			<div class="col-sm-12">
-
-				<img class="avatar" src="{$ avatar $}">
+			<div class="col-sm-12 top-bar">
+				<div class="avatar-wrapper">
+					<img class="avatar" src="{$ avatar $}">
+				</div>
 
 				<span class="username">
 					{$ username $}
@@ -43,7 +89,7 @@
 		<div class="row">
 			<div class="col-sm-11 col-sm-offset-1">
 				<form class="form" ng-submit="makePost()">
-					<textarea type="text" ng-model="$parent.newPostInput" autofocus placeholder="what's on your mind?"></textarea>
+					<textarea type="text" ng-model="newPostInput.text" autofocus placeholder="what's on your mind?"></textarea>
 					<div class="row">
 						<div class="col-sm-12 bottom-row">
 							<input type="submit" class="btn btn-success" value="SEND">
@@ -57,15 +103,19 @@
 	</div>
 
 
-	<div class="post" ng-repeat="post in posts | orderBy:'$index':true">
+	<div class="post" ng-cloak ng-repeat="post in posts | orderBy:'$index':true">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 top-bar">
+				
+				<div class="avatar-wrapper">
+					<img class="avatar" src="{$ post[0] $}">
+				</div>
 
-				<img class="avatar" src="{$ post[0] $}">
-
-				<span class="username">
-					{$ post[1] $}
-				</span>
+				<!-- <a href="/profile/{$ post[6] $}"> -->
+					<span class="username">
+						{$ post[1] $}
+					</span>
+				<!-- </a> -->
 			</div>
 		</div>
 		<div class="row">
@@ -74,19 +124,19 @@
 			</div>
 			<div class="col-sm-2 vote">
 				<div class="row">
-					<a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
+					<a href="#"><span ng-click="vote( post[7], true);" class="glyphicon glyphicon-chevron-up"></span></a>
 				</div>
 				<div class="row num">
 					{$ post[3] $}
 				</div>
 				<div class="row">
-					<a href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+					<a href="#"><span ng-click="vote( post[7], false);" class="glyphicon glyphicon-chevron-down"></span></a>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12 time">
-				{$ post[4] $} * Atlanta
+				{$ post[4] $}
 			</div>
 		</div>
 	</div>

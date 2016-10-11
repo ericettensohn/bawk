@@ -146,36 +146,50 @@
   margin-left: auto;
   margin-right: auto;
 }
-/* line 13, ../../compass/sass/layout/_post.scss */
+/* line 12, ../../compass/sass/layout/_post.scss */
+.post .top-bar {
+  display: flex;
+  align-items: center;
+}
+/* line 17, ../../compass/sass/layout/_post.scss */
 .post .username {
   font-size: 17px;
   font-weight: bold;
+  margin-left: 5px;
 }
-/* line 18, ../../compass/sass/layout/_post.scss */
-.post .avatar {
+/* line 29, ../../compass/sass/layout/_post.scss */
+.post .avatar-wrapper {
+  display: inline-block;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  overflow: hidden;
+  z-index: 5;
 }
-/* line 24, ../../compass/sass/layout/_post.scss */
+/* line 36, ../../compass/sass/layout/_post.scss */
+.post .avatar-wrapper .avatar {
+  height: 40px;
+  z-index: 4;
+}
+/* line 42, ../../compass/sass/layout/_post.scss */
 .post .vote {
   font-size: 22px;
   text-align: center;
 }
-/* line 27, ../../compass/sass/layout/_post.scss */
+/* line 45, ../../compass/sass/layout/_post.scss */
 .post .vote span {
   color: #ddd;
 }
-/* line 31, ../../compass/sass/layout/_post.scss */
+/* line 49, ../../compass/sass/layout/_post.scss */
 .post .vote .num {
   color: #0dd5b2;
 }
-/* line 36, ../../compass/sass/layout/_post.scss */
+/* line 54, ../../compass/sass/layout/_post.scss */
 .post .time {
   margin-left: 15px;
   color: #B8C6C4;
 }
-/* line 41, ../../compass/sass/layout/_post.scss */
+/* line 59, ../../compass/sass/layout/_post.scss */
 .post p {
   margin-top: 10px;
   color: #3f4443;
@@ -219,15 +233,20 @@
 /* line 38, ../../compass/sass/layout/_follow_list.scss */
 .follow-list .follow-list-user .follow-list-avatar-wrapper {
   position: relative;
-}
-/* line 41, ../../compass/sass/layout/_follow_list.scss */
-.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-list-avatar {
   width: 120px;
-  overflow: hidden;
+  height: 120px;
   border-radius: 50%;
-  transition: .3s;
+  overflow: hidden;
+  z-index: 5;
+  margin: auto;
 }
 /* line 48, ../../compass/sass/layout/_follow_list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-list-avatar {
+  height: 120px;
+  overflow: hidden;
+  transition: .3s;
+}
+/* line 55, ../../compass/sass/layout/_follow_list.scss */
 .follow-list .follow-list-user .follow-list-avatar-wrapper .follow-overlay {
   color: white;
   position: absolute;
@@ -238,7 +257,7 @@
   top: 50px;
   display: none;
 }
-/* line 62, ../../compass/sass/layout/_follow_list.scss */
+/* line 69, ../../compass/sass/layout/_follow_list.scss */
 .follow-list .follow-list-user .follow-list-username span {
   color: #666 !important;
 }
@@ -255,41 +274,55 @@
   border: 1px solid #e0e0e0;
 }
 /* line 11, ../../compass/sass/layout/_new_post.scss */
+.new-post .top-bar {
+  display: flex;
+  align-items: center;
+}
+/* line 16, ../../compass/sass/layout/_new_post.scss */
 .new-post .username {
   font-size: 14px;
   font-weight: bold;
   color: #647170;
+  margin-left: 5px;
 }
-/* line 17, ../../compass/sass/layout/_new_post.scss */
-.new-post .avatar {
+/* line 23, ../../compass/sass/layout/_new_post.scss */
+.new-post .avatar-wrapper {
+  display: inline-block;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  overflow: hidden;
+  z-index: 5;
 }
-/* line 23, ../../compass/sass/layout/_new_post.scss */
+/* line 30, ../../compass/sass/layout/_new_post.scss */
+.new-post .avatar-wrapper .avatar {
+  height: 40px;
+  z-index: 4;
+}
+/* line 37, ../../compass/sass/layout/_new_post.scss */
 .new-post .vote {
   font-size: 22px;
   text-align: center;
 }
-/* line 26, ../../compass/sass/layout/_new_post.scss */
+/* line 40, ../../compass/sass/layout/_new_post.scss */
 .new-post .vote span {
   color: #ddd;
 }
-/* line 30, ../../compass/sass/layout/_new_post.scss */
+/* line 44, ../../compass/sass/layout/_new_post.scss */
 .new-post .vote .num {
   color: #0dd5b2;
 }
-/* line 35, ../../compass/sass/layout/_new_post.scss */
+/* line 49, ../../compass/sass/layout/_new_post.scss */
 .new-post .time {
   margin-left: 15px;
   color: #B8C6C4;
 }
-/* line 40, ../../compass/sass/layout/_new_post.scss */
+/* line 54, ../../compass/sass/layout/_new_post.scss */
 .new-post p {
   margin-top: 10px;
   color: #3f4443;
 }
-/* line 45, ../../compass/sass/layout/_new_post.scss */
+/* line 59, ../../compass/sass/layout/_new_post.scss */
 .new-post textarea {
   margin: 10px 5px;
   font-size: 15px;
@@ -300,19 +333,15 @@
   box-shadow: none !important;
   width: 340px;
   resize: none;
-  overflow: hidden;
-  font-size: 18px;
-  height: 1.1em;
-  padding: 2px;
 }
-/* line 64, ../../compass/sass/layout/_new_post.scss */
+/* line 78, ../../compass/sass/layout/_new_post.scss */
 .new-post .bottom-row {
   text-align: right;
   border-top: 1px solid #e6e6e6;
   margin-right: 10px;
   margin-top: 15px;
 }
-/* line 72, ../../compass/sass/layout/_new_post.scss */
+/* line 86, ../../compass/sass/layout/_new_post.scss */
 .new-post .bottom-row input {
   background-color: white;
   color: #0dd5b2;
@@ -320,12 +349,12 @@
   margin: 5px 0 0 0;
   border: none;
 }
-/* line 80, ../../compass/sass/layout/_new_post.scss */
+/* line 94, ../../compass/sass/layout/_new_post.scss */
 .new-post .bottom-row input:active {
   background-color: white;
   color: #0dd5b2;
 }
-/* line 85, ../../compass/sass/layout/_new_post.scss */
+/* line 99, ../../compass/sass/layout/_new_post.scss */
 .new-post .bottom-row input:focus {
   outline: none !important;
   background-color: white;
@@ -335,12 +364,27 @@
   box-shadow: none !important;
   color: #ddd;
 }
-/* line 95, ../../compass/sass/layout/_new_post.scss */
+/* line 109, ../../compass/sass/layout/_new_post.scss */
 .new-post .bottom-row input:hover {
   color: #bbb;
 }
 
-/* line 30, ../../compass/sass/styles.scss */
+/* line 1, ../../compass/sass/layout/_front_page.scss */
+.front-page {
+  padding-top: 40px;
+  color: #777;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+/* line 6, ../../compass/sass/layout/_front_page.scss */
+.front-page .header {
+  font-size: 35px;
+}
+/* line 9, ../../compass/sass/layout/_front_page.scss */
+.front-page .header, .front-page .sub-header, .front-page .sub-sub-header {
+  color: #666;
+}
+
+/* line 31, ../../compass/sass/styles.scss */
 body {
   background-color: #fafafa;
   margin-top: 80px;

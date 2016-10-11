@@ -8,17 +8,31 @@
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
 
+	.top-bar {
+		display: flex;
+		align-items: center;
+	}
+
 	.username {
 		font-size: 14px;
 		font-weight: bold;
 		color: #647170;
+		margin-left: 5px;
 	}
 
-	.avatar {
+	.avatar-wrapper {
+		display: inline-block;
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
+		overflow: hidden;
+		z-index: 5;
+		.avatar {
+			height: 40px;
+			z-index: 4;
+		}
 	}
+
 
 	.vote {
 		font-size: 22px;
@@ -54,10 +68,10 @@
 
 		width:340px;
 		resize:none;
-		overflow:hidden;
-		font-size:18px;
-		height:1.1em;
-		padding:2px;
+		// overflow:hidden;
+		// font-size:18px;
+		// height:1.1em;
+		// padding:2px;
 	}
 
 

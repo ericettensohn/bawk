@@ -38,10 +38,17 @@
 		.follow-list-avatar-wrapper {
 			position: relative;
 			
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			overflow: hidden;
+			z-index: 5;
+			margin:auto;
+			
 			.follow-list-avatar {
-				width: 120px;
+				height: 120px;
 				overflow: hidden;
-				border-radius: 50%;
+				// border-radius: 50%;
 				transition: .3s;
 			}
 

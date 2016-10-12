@@ -96,7 +96,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	$scope.makePost = function(){
 		newPostContent = $scope.newPostInput.text;
 		console.log(newPostContent)
-		// $scope.newPostInput = '';
+		$scope.newPostInput = '';
 
 		$http.post('http://localhost:5000/new_post', {
 			newPostContent: newPostContent,

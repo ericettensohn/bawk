@@ -12,7 +12,7 @@ bawkApp.config(function($locationProvider) {
 
 bawkApp.controller('mainController', function($scope, $http, $location, $cookies, $timeout){
 
-	var path = 'http://localhost:5000/';
+	var path = 'http://ericettensohn.com:5000/';
 
 	$scope.newPostInput = {text: ""}
 
@@ -26,7 +26,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	}
 
 	function loadPosts(){
-		$http.post('http://localhost:5000/get_posts', {
+		$http.post(path + 'get_posts', {
 			username: $scope.username
 		}).then(function success(response){
 			$scope.posts = response.data;
@@ -35,7 +35,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	}
 
 	function getTrendingUsers(){
-		$http.post('http://localhost:5000/get_trending_users', {
+		$http.post(path + 'get_trending_users', {
 			username: $scope.username
 		}).then(function success(response){
 			$scope.users = response.data;
@@ -46,7 +46,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 
 
 	$scope.register = function(){
-		$http.post('http://localhost:5000/register_submit', {
+		$http.post(path + 'register_submit', {
 			username: $scope.username,
 			password: $scope.password,
 			avatar: $scope.avatar
@@ -60,7 +60,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	}
 
 	$scope.login = function(){
-		$http.post('http://localhost:5000/login_submit', {
+		$http.post(path + 'login_submit', {
 			username: $scope.username,
 			password: $scope.password
 		}).then(function successCallback(response){
@@ -98,11 +98,11 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		console.log(newPostContent)
 		$scope.newPostInput = '';
 
-		$http.post('http://localhost:5000/new_post', {
+		$http.post(path + 'new_post', {
 			newPostContent: newPostContent,
 			username: $scope.username
 		}).then(function success(response){
-			$http.get('http://localhost:5000/get_posts', {
+			$http.get(path + 'get_posts', {
 
 		}).then(function success(response){
 			$scope.posts = response.data
@@ -126,7 +126,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		}
 		console.log(id)
 
-		$http.post('http://localhost:5000/follow', {
+		$http.post(path + 'follow', {
 			username: $scope.username,
 			following_id: id
 		})

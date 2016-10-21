@@ -6,7 +6,7 @@ A simple Yik Yak/Twitter clone. Registration, login, password hashing with bcryp
 * HTML
 * CSS
 * JS
-* AJAX
+* Angular.js
 * SASS
 * Flask
 * Python
@@ -18,4 +18,4 @@ A simple Yik Yak/Twitter clone. Registration, login, password hashing with bcryp
 
 `python main.py`
 
-##Live Demo
+##[Live Demo](bawk.ericettensohn.com)

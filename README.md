@@ -18,7 +18,7 @@ A simple Yik Yak/Twitter clone. Registration, login, password hashing with bcryp
 
 `python main.py`
 
-##[Live Demo](bawk.ericettensohn.com)
+##[Live Demo](http://bawk.ericettensohn.com)
 
 ![screenshot1](http://i.imgur.com/k9DRhLF.png)
 
